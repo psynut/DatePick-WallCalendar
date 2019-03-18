@@ -8,10 +8,14 @@ public class UpdateInputField : MonoBehaviour {
 
     public InputField mainInputField;
     private Calendar calendar;
-    //https://msdn.microsoft.com/en-us/library/bb762911(v=vs.110).aspx
+    private Canvas dateCanvas;
 
     void Start(){
-    	
+		dateCanvas = GameObject.Find("Date Canvas").GetComponent<Canvas>();
+    	if(!dateCanvas){
+    	Debug.LogWarning("Did not find 'Date Canvas' canvas component!");
+    	}
+    	dateCanvasEnabled(false);
     }
 
     public void UpdateField()
@@ -19,5 +23,10 @@ public class UpdateInputField : MonoBehaviour {
 		int dayNumb = EventSystem.current.currentSelectedGameObject.GetComponent<DayButton>().CurrentNumber();
 		calendar = GameObject.FindObjectOfType<Calendar>();
        	mainInputField.text = calendar.ReturnDate(dayNumb);
+		dateCanvasEnabled(false);
+    }
+
+    public void dateCanvasEnabled(bool canvasbool){
+    	dateCanvas.enabled = canvasbool;
     }
 }
